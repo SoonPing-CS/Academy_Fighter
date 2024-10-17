@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select a Chapter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet"> <!-- Montserrat font -->
+</head>
+
+<body>
+    <h1>Select a Chapter</h1>
+    <form action="/select_chapter" method="POST" onsubmit="showLoading()">
+        <div class="button-container">
+            <button id="chapter1" class="chapter-btn" style="--i: 1;">Primary School</button>
+            <button id="chapter2" class="chapter-btn" style="--i: 2;">Middle School</button>
+            <button id="chapter3" class="chapter-btn" style="--i: 3;">High School</button>
+        </div>
+    </form>
+
+    <div>
+        <button id="quitBtn" class="chapter-btn">End</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const chapter1Btn = document.getElementById('chapter1');
+            const chapter2Btn = document.getElementById('chapter2');
+            const chapter3Btn = document.getElementById('chapter3');
+            const quitBtn = document.getElementById('quitBtn');
+
+            if (chapter1Btn) {
+                chapter1Btn.addEventListener('click', function (event) {
+                    event.preventDefault(); // Prevent form submission
+                    window.location.href = "/example1";
+                });
+            }
+
+            if (chapter2Btn) {
+                chapter2Btn.addEventListener('click', function (event) {
+                    event.preventDefault(); // Prevent form submission
+                    window.location.href = "/example2";
+                });
+            }
+
+            if (chapter3Btn) {
+                chapter3Btn.addEventListener('click', function (event) {
+                    event.preventDefault(); // Prevent form submission
+                    window.location.href = "/example3";
+                });
+            }
+
+            if (quitBtn) {
+                quitBtn.addEventListener('click', function () {
+                    window.location.href = "{{ url_for('end') }}"; // Adjust this as needed
+                });
+            }
+        });
+    </script>
+</body>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff; 
+            color: #333; 
+            text-align: center;
+            padding-top: 50px;
+            transition: background-color 0.5s ease; 
+            overflow: hidden; /* Prevent scrollbar during animations */
+        }
+
+        body:hover {
+            background-color: #9cd4e2; 
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif; 
+            color: #007bff; 
+            margin-bottom: 30px;
+            font-size: 3.0rem;
+            animation: fadeIn 1s ease-out, bounce 0.5s ease-in-out 1s; 
+        }
+
+        .chapter-btn {
+            display: inline-block;
+            padding: 15px 30px;
+            margin: 10px;
+            font-size: 1.2rem;
+            background-color: #007bff; 
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease; 
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+        }
+
+        .chapter-btn:hover {
+            background-color: #0056b3; 
+            transform: translateY(-5px) scale(1.05); 
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); 
+            filter: brightness(1.1); 
+        }
+
+        .chapter-btn:active {
+            transform: translateY(1px); 
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px); /* Move header up */
+            }
+        }
+
+        @keyframes buttonEntrance {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .button-container {
+            display: flex;
+            flex-wrap: wrap; /* Allow buttons to wrap to the next line */
+            justify-content: center; /* Center buttons horizontally */
+            margin-top: 20px;
+        }
+
+        .chapter-btn {
+            animation: buttonEntrance 0.5s ease forwards; 
+            width: 200px; /* Set a fixed width for buttons */
+            padding: 15px 20px; /* Adjust padding for a more consistent look */
+            margin: 10px; /* Space between buttons */
+            font-size: 1.2rem; /* Consistent font size */
+            transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition for button */
+            }
+
+        .chapter-btn:nth-child(n) {
+            animation-delay: calc(0.1s * var(--i)); /* Stagger button animations */
+        }
+
+        @media (max-width: 600px) {
+            .chapter-btn {
+                width: 150px; /* Smaller width on small screens */
+                font-size: 1rem; /* Responsive font size for buttons */
+            }
+        }
+    </style>
+
+</html>

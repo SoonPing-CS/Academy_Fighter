@@ -1,0 +1,376 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Login</title>
+</head>
+
+<body>
+
+      <style>
+        /* NavBar.css */
+        @import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
+
+        :root{
+            --color-1: #0f1016;
+            --text-color: #f0f0f0;
+            --accent-color: #7d7f83;
+          }
+
+          *{
+            margin: 0;
+            padding: 0;
+          }
+
+          html{
+            font-size: 12pt;
+            font-family: Exo+2, Segoe UI, Tahoma, sans-serif;
+          }
+
+          nav{
+            height: 60px;
+            background-color: var(--color-1);
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+          }
+
+          nav svg {
+            fill: white;
+          }
+
+          .links-container{
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+          }
+
+          nav a{
+            height: 100%;
+            padding: 0 30px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-color);
+          }
+
+          nav a:hover{
+            background-color: var(--accent-color);
+          }
+
+          nav .home-link{
+            margin-right: auto;
+          }
+
+          nav svg{
+            fill: var(--text-color);
+          }
+
+          #sidebar-active{
+            display: none;
+          }
+
+          .open-sidebar-button, .close-sidebar-button{
+            display: none;
+          }
+
+          @media(max-width: 1120px){
+            .links-container{
+              flex-direction: column;
+              align-items: flex-start;
+
+              position: fixed;
+              top: 0;
+              right: -100%;
+              z-index: 10;
+              width: 300px;
+
+              background-color: var(--color-1);
+              box-shadow: -5px 0 5px rgba(0, 0, 0, 0.25);
+              transition: 0.75s ease-out;
+            }
+            nav a{
+              box-sizing: border-box;
+              height: auto;
+              width: 100%;
+              padding: 20px 30px;
+              justify-content: flex-start;
+            }
+            .open-sidebar-button, .close-sidebar-button{
+              padding: 20px;
+              display: block;
+            }
+            #sidebar-active:checked ~ .links-container{
+              right: 0;
+            }
+            #sidebar-active:checked ~ #overlay{
+              height: 100%;
+              width: 100%;
+              position: fixed;
+              top: 0;
+              left: 0;
+              z-index: 9;
+            }
+          }
+
+          /* loginSignUp.css */
+          @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+          :root{
+            --accent-color: #8672FF;
+            --base-color: rgba(0, 0, 0, 0.474);
+            --text-color: #aaaaaa;
+            --input-color: #F3F0FF;
+          }
+          *{
+            margin: 0;
+            padding: 0;
+          }
+          html{
+            font-family: Poppins, Segoe UI, sans-serif;
+            font-size: 12pt;
+            color: var(--text-color);
+            text-align: center;
+          }
+          /* body{
+            min-height: 100vh;
+            background-image: url(image/background2.jpg);
+            background-size: cover;
+            background-position: right;
+            overflow: hidden;
+          } */
+
+          body{
+            min-height: 100vh;
+            /* background-image: url(image/background2.jpg);  */
+            background: url('{{url_for('static', filename='images/signUpLogin_background.jpg')}}') no-repeat center center/cover;
+            background-size: cover;
+            background-position: right;
+            overflow: hidden;
+            animation: backgroundMove 10s infinite alternate;
+          }
+
+          .wrapper{
+            box-sizing: border-box;
+            background-color: var(--base-color);
+            height: 100vh;
+            width: max(40%, 600px);
+            padding: 10px;
+            border-radius: 0 20px 20px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+          }
+          h1{
+            font-size: 3rem;
+            font-weight: 500;
+            text-transform: capitalize;
+          }
+          form{
+            width: min(400px, 100%);
+            margin-top: 20px;
+            margin-bottom: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+          }
+          form > div{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+          }
+          form label{
+            flex-shrink: 0;
+            height: 50px;
+            width: 50px;
+            background-color: var(--accent-color);
+            fill: var(--base-color);
+            color: var(--base-color);
+            border-radius: 10px 0 0 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 500;
+          }
+          form input{
+            box-sizing: border-box;
+            flex-grow: 1;
+            min-width: 0;
+            height: 50px;
+            padding: 1em;
+            font: inherit;
+            border-radius: 0 10px 10px 0;
+            border: 2px solid var(--input-color);
+            border-left: none;
+            background-color: var(--input-color);
+            transition: 150ms ease;
+          }
+          form input:hover{
+            border-color: var(--accent-color);
+          }
+          form input:focus{
+            outline: none;
+            border-color: var(--text-color);
+          }
+          div:has(input:focus) > label{
+            background-color: var(--text-color);
+          }
+          form input::placeholder{
+            color: var(--text-color);
+          }
+          form button{
+            margin-top: 10px;
+            border: none;
+            border-radius: 1000px;
+            padding: .85em 4em;
+            background-color: var(--accent-color);
+            color: var(--base-color);
+            font: inherit;
+            font-weight: 600;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 150ms ease;
+          }
+          form button:hover{
+            background-color: var(--text-color);
+          }
+          form button:focus{
+            outline: none;
+            background-color: var(--text-color);
+          }
+          a{
+            text-decoration: none;
+            color: var(--accent-color);
+          }
+          a:hover{
+            text-decoration: underline;
+          }
+          @media(max-width: 1100px){
+            .wrapper{
+              width: min(600px, 100%);
+              border-radius: 0;
+            }
+          }
+          form div.incorrect label{
+            background-color: #f06272;
+          }
+          form div.incorrect input{
+            border-color: #f06272;
+          }
+          #error-message{
+            color:#f06272;
+          }
+
+        </style>
+
+      <nav>
+            <a class="navbar-brand" href="#">
+                  <h1>AcademyFighter</h1>
+            </a>
+
+            <input type="checkbox" id="sidebar-active">
+            <label for="sidebar-active" class="open-sidebar-button">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 -960 960 960" width="32">
+                        <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
+                  </svg>
+            </label>
+            <label id="overlay" for="sidebar-active"></label>
+
+            <div class="links-container">
+                  <label for="sidebar-active" class="close-sidebar-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 -960 960 960" width="32">
+                              <path
+                                    d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+                        </svg>
+                  </label>
+
+                  <!-- <a class="home-link" href="index.html">Home</a>
+                  <a class="story-link" href="MapFoodStory.html">Story</a>
+                  <a class="recipe-link" href="MapRecipe.html">Recipes</a>
+                  <a class="restaurant-link" href="MapRestaurant.html">Restaurants</a>
+                  <a class="aboutus-link" href="aboutUs.html">About Us</a> -->
+            </div>
+
+      </nav>
+
+      <div class="wrapper">
+            <h1>Login</h1>
+            <p id="message"></p>
+            <form id="loginForm">
+            <div>
+              <label for="username">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                  <path
+                    d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Z" />
+                </svg>
+              </label>
+              <input type="text" id="username" placeholder="Username" required>
+            </div>
+
+            <div>
+                  <label for="password">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                              <path
+                                    d="M240-80q-33 0-56.5-23.5T160-160v-400q0-33 23.5-56.5T240-640h40v-80q0-83 58.5-141.5T480-920q83 0 141.5 58.5T680-720v80h40q33 0 56.5 23.5T800-560v400q0 33-23.5 56.5T720-80H240Zm240-200q33 0 56.5-23.5T560-360q0-33-23.5-56.5T480-440q-33 0-56.5 23.5T400-360q0 33 23.5 56.5T480-280ZM360-640h240v-80q0-50-35-85t-85-35q-50 0-85 35t-35 85v80Z" />
+                        </svg>
+                  </label>
+                  <input type="password" id="password" placeholder="Password"required>
+            </div>
+
+            <button type="submit">Login</button>
+            </form>
+            <p id="message"></p>
+            <!-- <p>Don't have an account?<a href="{{ url_for('signUp') }}">Sign Up</a></p> -->
+            <p>Don't have an account? <a href="{{ url_for('signup') }}">Sign Up</a></p>
+            <script>
+                  // Function to handle login
+                  function handleLogin(event) {
+                    event.preventDefault();
+                    const username_input = document.getElementById('username').value;
+                    const password_input = document.getElementById('password').value;
+                    // const grade_input = document.getElementById('grade').value;
+                    // // const name_input = document.getElementById('name').value;
+                    const messageElement = document.getElementById('message');
+
+                    const users = JSON.parse(localStorage.getItem('users')) || [];
+                    const user = users.find(u => u.username === username_input && u.password === password_input);
+
+                    if (user) {
+                        sessionStorage.setItem('currentUser', JSON.stringify(user));
+                        messageElement.textContent = 'Login successful!';
+                        alert('Login successful!');
+                        setTimeout(() => {
+                            window.location.href = "{{ url_for('select_chapter') }}"; 
+                              // Redirect to a dashboard or home page
+                        }, 2000);
+                    } else {
+                        messageElement.textContent = 'Invalid username or password. Please try again or sign up.';
+                        alert('Invalid username or password. Please try again or sign up.');
+                    }
+                  }
+
+                  // Add event listeners
+                  document.addEventListener('DOMContentLoaded', () => {
+                    const signUpForm = document.getElementById('signUpForm');
+                    const loginForm = document.getElementById('loginForm');
+
+                    if (signUpForm) {
+                        signUpForm.addEventListener('submit', handleSignUp);
+                    }
+
+                    if (loginForm) {
+                        loginForm.addEventListener('submit', handleLogin);
+                    }
+                  });
+                </script>
+      </div>
+</body>
+
+</html>

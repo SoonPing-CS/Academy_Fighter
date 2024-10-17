@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Academy Fighter</title>
+</head>
+
+<body>
+    <div id="header">
+        <h2>Academy Fighter</h2>
+        <div id="content"></div>
+        <button id="signUpBtn">Sign Up</button>
+        <button id="loginBtn">Log In</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const signUpBtn = document.getElementById('signUpBtn');
+            const loginBtn = document.getElementById('loginBtn');
+
+            signUpBtn.addEventListener('click', function () {
+                window.location.href = "{{ url_for('signup') }}";
+            });
+
+            loginBtn.addEventListener('click', function () {
+                window.location.href = "{{ url_for('login') }}";
+            });
+        });
+    </script>
+</body>
+
+<style>
+    /* Basic Reset */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Full-screen background image */
+    body {
+        font-family: 'Arial', sans-serif;
+        background: url('{{url_for('static', filename='images/welcoming_background.jpeg')}}') no-repeat center center/cover;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #ffffff;
+        animation: backgroundMove 10s infinite alternate;
+    }
+
+    /* Header and content container */
+    #header {
+        text-align: center;
+        background: rgba(0, 0, 0, 0.7);
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+        animation: fadeIn 1.5s ease-in-out;
+    }
+
+    #header h2 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+    }
+
+    #content {
+        margin-top: 20px;
+        font-size: 1.2rem;
+        line-height: 1.6;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+    }
+
+    #content.show {
+        opacity: 1;
+    }
+
+    /* Button Styles */
+    #signUpBtn,
+    #loginBtn {
+        padding: 10px 20px;
+        background-color: #007bff;
+        border: none;
+        color: #fff;
+        font-size: 1rem;
+        cursor: pointer;
+        border-radius: 5px;
+        margin: 10px 5px; /* Spacing between buttons */
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    #signUpBtn:hover,
+    #loginBtn:hover {
+        background-color: #0056b3;
+        transform: scale(1.05);
+    }
+
+    /* Keyframes for fadeIn animation */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-80px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Keyframes for background image animation */
+    @keyframes backgroundMove {
+        from {
+            background-position: 0% 50%;
+        }
+
+        to {
+            background-position: 100% 50%;
+        }
+    }
+</style>
+
+</html>

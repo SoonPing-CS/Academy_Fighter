@@ -1,0 +1,102 @@
+<!-- example3 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generated Question</title>
+    <!-- Include MathJax for LaTeX rendering -->
+    <script type="text/javascript" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #4a4e69;
+            text-align: center;
+        }
+
+        h2 {
+            color: #9a8c98;
+        }
+
+        button {
+            background-color: #4a4e69;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #22223b;
+        }
+
+        form {
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            resize: none;
+        }
+    </style>
+    
+</head>
+<body>
+    <h1>Generated Math Question</h1>
+
+    <!-- Display the generated question here -->
+    {% if question_text %}
+        <h2>Question:</h2>
+        <p>{{ question_text | safe }}</p> <!-- This ensures LaTeX renders properly -->
+        <script>
+            MathJax.typesetPromise();  <!-- Ensures MathJax processes newly inserted LaTeX -->
+        </script>
+    {% else %}
+        <p>No question generated yet.</p>
+    {% endif %}
+
+    <!-- Button to generate a new question -->
+    <form method="POST" action="/example3">
+        <button type="submit" name="generate_question">Generate New Question</button>
+    </form>
+
+    <!-- Form to verify the answer -->
+    <form method="POST" action="/verify_answer3">
+        <label for="answer">Enter your answer:</label><br>
+        <textarea name="answer" id="answer" rows="4" cols="50"></textarea>
+        <br><br>
+        <button type="submit" name="verify_answer">Verify Answer</button>
+    </form>
+
+    {% if user_answer %}
+        <h2>Your Answer:</h2>
+        <p>{{ user_answer }}</p>
+    {% endif %}
+
+    <div style="text-align: center; margin-top: 20px;">
+        <form action="/select_chapter" method="GET">
+            <button type="submit">Back</button>
+        </form>
+    </div>
+    
+</body>
+</html>

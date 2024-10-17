@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <h1 class="floating">Thank You for Using Academy Fighter!</h1>
+    <p>We hope you enjoyed your experience. Come back soon!</p>
+</body>
+
+<style>
+    /* Basic Reset */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Full-screen background */
+    body {
+        font-family: 'Roboto', sans-serif;
+        background: linear-gradient(135deg, #f093fb, #f5576c, #4facfe, #00f2fe);
+        background-size: 300% 300%;
+        animation: gradientBackground 10s ease infinite;
+        color: #ffffff;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    /* Gradient animation */
+    @keyframes gradientBackground {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    /* Thank You message */
+    h1 {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 3.5rem;
+        margin-bottom: 20px;
+        animation: fadeInUp 1s ease forwards;
+    }
+
+    /* Additional content style */
+    p {
+        font-size: 1.2rem;
+        margin-top: 20px;
+        animation: fadeInUp 1.5s ease forwards;
+    }
+
+    /* Keyframes for fadeInUp animation */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Floating animation for extra interactivity */
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+
+    /* Style for floating effect */
+    .floating {
+        animation: float 3s ease-in-out infinite;
+    }
+</style>
+
+</html>
