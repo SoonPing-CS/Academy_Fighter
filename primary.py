@@ -2,11 +2,12 @@
 # Example function to generate something
 from flask import Flask, render_template, request
 from openai import OpenAI
+
 import os, re
 
 
 
-client = OpenAI(api_key=os.environ['openai'])
+client = OpenAI(api_key=st.secret['openai'])
 
 def question(prompt=""):
     system_prompt = """
