@@ -7,7 +7,7 @@ import os, re
 
 
 
-client = OpenAI(api_key=st.secret['openai'])
+client = OpenAI(api_key=os.environ['openai'])
 
 def question(prompt=""):
     system_prompt = """
